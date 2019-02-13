@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}">
+  <script src="{{ url_for('static',filename='js/jquery3.3.1.js') }}"></script>
+  <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
+</head>
+ 
+
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Expand at sm</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarsExample03">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href= "{{ url_for('sales_page') }}">sale</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+          </li>
+   <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown link
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+        </ul>
+        <form class="form-inline my-2 my-md-0">
+          <input class="form-control" type="text" placeholder="Search">
+        </form>
+      </div>
+    </nav>
+    </div>
+
+        <ul class="nav navbar-nav navbar-right ">
+
+
+            <div style="margin-right: 10px; margin-left: 15px; margin-top: 5px; margin-bottom: 5px;"
+                 class="container-fluid">
+                <h5>
+                    {% if session.logged_in %}
+
+                    <a href="/support-donate/"> <span class="glyphicon glyphicon-heart"></span> Support </a>
+                    <a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout </a>
+
+                    {% else %}
+
+                    <a href="/support-donate/"> <span class="glyphicon glyphicon-heart"></span> Support </a>
+                    <a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login </a>
+                    <a href="/register"><span class="glyphicon glyphicon-pencil"></span> Sign up</a>
+                    {% endif %}
+                </h5>
+
+            </div>
+        </ul>
+
+    </div>
+
+
+</header>
+
+<!-- Optional JavaScript -->
+<!-- removed align=center -->
+<body>
+
+
+<div class="container" style='min-height:100%; width:80%'>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <button type='button' class='close' data-dismiss="alert" aria-label="close">
+                        <span aria-hidden=true>&times;</span>
+                    </button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% block body %}{% endblock %}
+
+</div>
+
+<!-- Latest compiled and minified JavaScript -->
+<link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}">
+
+</body>
+
+</html>

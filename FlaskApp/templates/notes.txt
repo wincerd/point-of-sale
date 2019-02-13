@@ -1,0 +1,7 @@
+Profit and Loss Account to ascertain the profit earned or loss incurred during an accounting period.
+Balance Sheet to ascertain the financial position of the business as on a particular date.
+
+Journal is a historical record of business transaction or events. The
+word journal comes from the French word “Jour” meaning “day”. It is a
+book of original or prime entry. Journal is a primary book for recording
+the day to day transactions in a chronological order
