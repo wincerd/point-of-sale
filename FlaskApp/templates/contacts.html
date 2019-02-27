@@ -1,0 +1,92 @@
+ {% extends 'header.html' %}
+ {% block body %}
+ <script type="text/javascript">
+$(document).ready(function(){
+var tbl = '';
+    
+    tbl +='<table class="table table-hover">'
+
+        //--->create table header > start
+        tbl +='<thead>';
+            tbl +='<tr>';
+            tbl +='<th>First Name</th>';
+            tbl +='<th>Last Name</th>';
+            tbl +='<th>Email</th>';
+            tbl +='<th>Options</th>';
+            tbl +='</tr>';
+        tbl +='</thead>';
+        //--->create table header > end   
+        //--->create table body > start
+        tbl +='<tbody>';
+ {%for row in data %}  
+tbl +='<tr row_id="{{row[0]}}">';
+    tbl +='<td ><div class="row_data" edit_type="click">{{row[0]}}<td><div class="row_data" edit_type="click">{{row[1]}}</div></td><td><div class="row_data" edit_type="click">{{row[2]}}</div></td><td><div class="row_data" edit_type="click">{{row[3]}}</td>';
+
+    //--->edit options > start
+    tbl +='<td>';
+ tbl +='<span class="btn_edit" > <a href="#" class="btn btn-link "  > Edit</a> </span>';
+        //only show this button if edit button is clicked
+ tbl +='<span class="btn_save"> <a href="#" class="btn btn-link"  > Save</a> | </span>';
+ tbl +='<span class="btn_cancel"> <a href="#" class="btn btn-link" > Cancel</a> | </span>';
+
+                    //--->edit options > en
+{% endfor %}
+            //--->create table body rows > end
+       
+        tbl +='</tbody>';
+        //--->create table body > end
+
+    tbl +='</table>'    
+    //--->create data table > end
+
+    //out put table data
+    $(document).find('.tbl_user_data').html(tbl);
+
+    $(document).find('.btn_save').hide();
+    $(document).find('.btn_cancel').hide(); 
+
+ });
+ $(document).on('click', '.btn_edit', function(event) 
+    {
+        event.preventDefault();
+        var tbl_row = $(this).closest('tr');
+
+        var row_id = tbl_row.attr('row_id');
+
+        tbl_row.find('.btn_save').show();
+        tbl_row.find('.btn_cancel').show();
+
+        //hide edit button
+        tbl_row.find('.btn_edit').hide(); 
+
+        //make the whole row editable
+        tbl_row.find('.row_data')
+        .attr('contenteditable', 'true')
+        .attr('edit_type', 'button')
+        .addClass('bg-warning')
+        .css('padding','3px')
+
+        //--->add the original entry > start
+        tbl_row.find('.row_data').each(function(index, val) 
+        {  
+            //this will help in case user decided to click on cancel button
+            $(this).attr('original_entry', $(this).html());
+       }) 
+   });   
+</script>	
+
+
+
+
+ <div class="panel panel-default">
+  <div class="panel-heading"><b> Demo </b> </div>
+
+  <div class="panel-body">
+    
+    <div class="tbl_user_data"></div>
+
+  </div>
+
+</div>
+
+ {% endblock %}

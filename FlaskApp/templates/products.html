@@ -1,0 +1,172 @@
+
+{% extends 'header.html' %}
+
+{% block body %}
+
+
+ <script type="text/javascript">
+$(document).ready(function(){
+var tbl = '';
+    
+    tbl +='<table class="table table-hover">'
+
+        //--->create table header > start
+        tbl +='<thead>';
+            tbl +='<tr>';
+            tbl +='<th>First Name</th>';
+            tbl +='<th>Last Name</th>';
+            tbl +='<th>Email</th>';
+            tbl +='<th>Options</th>';
+            tbl +='</tr>';
+        tbl +='</thead>';
+        //--->create table header > end
+
+        
+        //--->create table body > start
+        tbl +='<tbody>';
+    
+ {%for row in data %}  
+tbl +='<tr row_id="{{row[0]}}">';
+    tbl +='<td ><div class="row_data" edit_type="click">{{row[0]}}<td><div class="row_data" edit_type="click">{{row[1]}}</div></td><td><div class="row_data" edit_type="click">{{row[2]}}</div></td><td><div class="row_data" edit_type="click">{{row[3]}}</td>';
+
+    //--->edit options > start
+    tbl +='<td>';
+ tbl +='<span class="btn_edit" > <a href="#" class="btn btn-link "  > Edit</a> </span>';
+        //only show this button if edit button is clicked
+ tbl +='<span class="btn_save"> <a href="#" class="btn btn-link"  > Save</a> | </span>';
+ tbl +='<span class="btn_cancel"> <a href="#" class="btn btn-link" > Cancel</a> | </span>';
+
+                    //--->edit options > en
+{% endfor %}
+            //--->create table body rows > end
+       
+        tbl +='</tbody>';
+        //--->create table body > end
+
+    tbl +='</table>'    
+    //--->create data table > end
+
+    //out put table data
+    $(document).find('.tbl_user_data').html(tbl);
+
+    $(document).find('.btn_save').hide();
+    $(document).find('.btn_cancel').hide(); 
+
+ });
+ $(document).on('click', '.btn_edit', function(event) 
+    {
+        event.preventDefault();
+        var tbl_row = $(this).closest('tr');
+
+        var row_id = tbl_row.attr('row_id');
+
+        tbl_row.find('.btn_save').show();
+        tbl_row.find('.btn_cancel').show();
+
+        //hide edit button
+        tbl_row.find('.btn_edit').hide(); 
+
+        //make the whole row editable
+        tbl_row.find('.row_data')
+        .attr('contenteditable', 'true')
+        .attr('edit_type', 'button')
+        .addClass('bg-warning')
+        .css('padding','3px')
+
+        //--->add the original entry > start
+        tbl_row.find('.row_data').each(function(index, val) 
+        {  
+            //this will help in case user decided to click on cancel button
+            $(this).attr('original_entry', $(this).html());
+       }) 
+   });   
+</script>	
+
+
+     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Dashboard</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#myModal">ADD products</button>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+  <form action =  "{{ url_for('inventory')}}" method = "POST">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Name</label>
+      <input type="text" name = "name" class="form-control" id="name" placeholder="Name" >
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Productid</label>
+      <input type="text" name = "productid" class="form-control" id="productid" placeholder="123" value="{{ request.form.productid }}">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+    <label for="inputAddress">Description</label>
+    <input type="text" name= "desc" class="form-control" id="description" placeholder="flour 1kg" value="{{ request.form.desc }}">
+  </div>
+  <div class="form-group">
+    <label for="inputAdd">size</label>
+    <input type="text" name = "size" class="form-control" id="inputAccount" placeholder="sale" value="{{ request.form.size}}">
+  </div>
+  <div class="form-group">
+    <label for="inputAddress2">Account</label>
+    <input type="text" name = "account" class="form-control" id="inputAccount" placeholder="sale" value="{{ request.form.account}}">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="inputState">Category</label>
+      <select name = "category" id="inputState" class="form-control">
+        <option  value="shop" selected>shop</option>
+        <option  value="cereal">cereal</option>
+        <option value="service">service</option>
+      </select>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputCity">Price</label>
+      <input type="text" name = "price" class="form-control" id="inputprice" value="{{ request.form.price }}">
+    </div>
+    <div class="form-group col-md-2">
+      <label for="inputZip">Cost</label>
+      <input type="text" name = "cost"class="form-control" id="inputcost" value="{{ request.form.cost }}">
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Save</button>
+</form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>      
+</div>
+</div>
+</div>
+<button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            This week
+          </button>
+        </div>
+      </div>
+
+<div class="panel panel-default">
+  <div class="panel-heading"><b> Demo </b> </div>
+
+  <div class="panel-body">
+    
+    <div class="tbl_user_data"></div>
+
+  </div>
+
+</div>
+{% endblock %}

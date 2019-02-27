@@ -7,12 +7,6 @@
  
 $(document).ready(function($)
 {
-    //ajax row data
-    var ajax_data =
-    [
-        {fname:"Code", lname:"With Mark", email:"mark@codewithmark.com"}, 
-    ]
-
     var random_id = function  () 
     {
         var id_num = Math.random().toString(9).substr(2,3);
@@ -45,7 +39,8 @@ $(document).ready(function($)
             
         
             //--->create table body rows > start
-            $.each(ajax_data, function(index, val) 
+            $(document).ready(function()
+            // $.each(ajax_data, function(index, val) 
             {
                 //you can replace with your database row id
                 var row_id = random_id();
@@ -244,22 +239,6 @@ $(document).ready(function($)
 
 }); 
 </script>
-
- 
-
-<div class="panel panel-default">
-  <div class="panel-heading"><b> Demo </b> </div>
-
-  <div class="panel-body">
-    
-    <div class="tbl_user_data"></div>
-
-  </div>
-
-</div>
-
- 
-
 <div class="panel panel-default">
   <div class="panel-heading"><b>HTML Table Edits/Upates</b> </div>
 
