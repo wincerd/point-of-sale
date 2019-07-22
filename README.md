@@ -1,2 +1,10 @@
 # point-of-sale
-a simple double entry point of sale system implimented in flask.
+web application system implimented in flask.
+
+the main  features are.
+ -initiallize database
+ -double entry system.
+ -generate reports.
+ -generate charts.
+ -add accounts.
+ 
